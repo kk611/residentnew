@@ -9,7 +9,13 @@ import CreateAmenity from "./createAmenity";
 import Logout from "../../../src/components/login/logout";
 import Amenities from "./Amenities";
 import Residents from "./resident";
-
+import CreateNotice from "./createNotice";
+import ListNotice from "./listNotice";
+import ListGatePass from "./listGatePass";
+import ListBookings from "./ListBookings";
+import ListForum from "./listForum";
+import ListPoll from "./listPoll";
+import Visitors from "./vistors";
 class SocietySidebar extends React.PureComponent {
   state = {
     collapsed: false,
@@ -46,6 +52,33 @@ class SocietySidebar extends React.PureComponent {
   onToggleResidents = () =>{
     this.setState(prevState => ({content: <Residents/>}))
   }
+  onToggleCreateNotice = () =>{
+    this.setState(prevState => ({content : <CreateNotice/>}))
+  }
+
+  onToggleListNotice = () =>{
+    this.setState(prevState =>({content : <ListNotice/>}))
+  }
+
+  onToggleListGatepass = () =>{
+    this.setState(prevState =>({content : <ListGatePass/>}))
+  }
+
+  onToggleListBookings = () =>{
+    this.setState(prevState => ({content: <ListBookings/>}))
+  }
+
+  onToggleListForum = () =>{
+  this.setState(prevState => ({content: <ListForum/>}))
+  }
+
+  onToggleListPoll =  () =>{
+    this.setState(prevState => ({content : <ListPoll/>}))
+  }
+
+  onToggleVisitors = () =>{
+    this.setState(prevState => ({content: <Visitors/>}))
+  }
 
   render() {
     return (
@@ -54,6 +87,13 @@ class SocietySidebar extends React.PureComponent {
           collapsed={this.state.collapsed}
           mode={this.state.mode}
           theme={this.state.theme}
+          onToggleVisitors={this.onToggleVisitors}
+          onToggleListPoll={this.onToggleListPoll}
+          onToggleListForum={this.onToggleListForum}
+          onToggleListBookings={this.onToggleListBookings}
+          onToggleListGatepass={this.onToggleListGatepass}
+          onToggleCreateNotice={this.onToggleCreateNotice}
+          onToggleListNotice={this.onToggleListNotice}
           onToggleResidents={this.onToggleResidents}
           onToggleListAmenity={this.onToggleListAmenity}
           onToggleCreateAmenity={this.onToggleCreateAmenity}

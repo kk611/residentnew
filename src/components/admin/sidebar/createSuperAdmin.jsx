@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Alert} from "react-bootstrap";
 import ReactSearchBox from "react-search-box";
 class CreateSuperAdmin extends Component {
-    state = {  }
+    state = {role:"superadmin"  }
     data=[{"key":1,"value":"superadmin"}];
     newSuperAdmin =() =>{
 
@@ -59,12 +59,12 @@ class CreateSuperAdmin extends Component {
                 <input type="text" name="apartmentId" placeholder="Apartment name" 
                 onChange={(e) => {this.setState({apartmentId:e.target.value})} }/>
               </div> */}
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label >Role</label>
                 <ReactSearchBox placeholder="role" data={this.data}  onSelect={(record) =>{
                   this.setState({role:record.value})
               }}></ReactSearchBox>
-              </div>
+              </div> */}
               
             </div>
 

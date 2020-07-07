@@ -113,8 +113,8 @@ class Sider extends React.PureComponent {
             key="sub2"
             title={<span><Icon type="team" /><span>Users</span></span>}
           >
-            <Menu.Item key="4" onClick={this.onToggleUsers}>List Users</Menu.Item>
-            <Menu.Item key="5" onClick={this.onToggleCreateUser}>Create User</Menu.Item>
+            {/* <Menu.Item key="4" onClick={this.onToggleUsers}>List Users</Menu.Item>
+            <Menu.Item key="5" onClick={this.onToggleCreateUser}>Create User</Menu.Item> */}
             <Menu.Item key="6" onClick={this.onToggleCreateSuperAdmin}>Create Superadmin</Menu.Item>
           </SubMenu>
 

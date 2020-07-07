@@ -11,8 +11,7 @@ class Admin extends Component {
     }
     render() { 
         if(localStorage.getItem("role") === "\"superadmin\"")
-        return ( <React.Fragment><Sidebar/><div></div>
-        <Link to ="/logout" >Logout</Link>
+        return ( <React.Fragment><Sidebar/>
          </React.Fragment>);
          else return(<Redirect to="/"/>)
     }

@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
+
 import Sider from "./Sider";
 import { Layout, Button, Row, Breadcrumb, Switch } from "antd";
 import {Icon} from "antd";
-import Cal from "./Cal";
-import ToDoList from "./ToDoList";
-import ButtonSize from "./ButtonSize";
-import Progress from './Progress'
-import Complete from './Complete'
+
+
 import Apartment from "./apartment";
 import CreateApartment from "./createApartment";
 import Logout from "../../login/logout";
@@ -35,21 +33,7 @@ class Sidebar extends React.PureComponent {
   toggleCollapsed = () => {
     this.setState(prevState => ({ collapsed: !prevState.collapsed }));
   };
-  onToggleCalendar = () => {
-    this.setState(prevState => ({ content: <Cal /> }));
-  };
-  onToggleToDoList = () => {
-    this.setState(prevState => ({ content: <ToDoList /> }));
-  };
-  onToggleButtonSize = () => {
-    this.setState(prevState => ({ content: <ButtonSize /> }));
-  };
-  onToggleProgress = () => {
-    this.setState(prevState => ({ content: <Progress /> }));
-  }
-  onToggleComplete = () => {
-    this.setState(prevState => ({ content: <Complete /> }));
-  }
+
   onToggleListApartment = () => {
     this.setState(prevState => ({ content: <Apartment /> }));
   }

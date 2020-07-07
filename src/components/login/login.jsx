@@ -4,6 +4,7 @@ import Auth from "./auth";
 import { BrowserRouter , Route, Switch, Link , Redirect} from "react-router-dom";
 import User from "../user/user";
 import auth from "./auth";
+import {Modal ,Alert, Spinner} from 'react-bootstrap';
 export class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -11,12 +12,13 @@ export class Login extends React.Component {
       username:"",
       password:"",
       loggedin : false,
+      toggle:false
       //role:""
     };
   }
 
   login = () => {
-    
+    this.setState({toggle:true});
     console.log("state", this.state);
     fetch(`https://cors-anywhere.herokuapp.com/http://ec2-3-20-203-149.us-east-2.compute.amazonaws.com/user/login`,{
       method:"POST",
@@ -27,9 +29,17 @@ export class Login extends React.Component {
       body:JSON.stringify(this.state)
     }).then((result)=>{
       result.json().then((resp)=>{
+        this.setState({toggle:false});
+        if(resp.isSuccessful === false){
+          this.setState({message:resp.message});
+          this.setState({variant:"danger"});
+          this.setState({show:true});
+        }
+        else{
         console.log(resp.auth_token);
         localStorage.setItem("login", JSON.stringify(resp.auth_token));
         localStorage.setItem("role", JSON.stringify(resp.user.role));
+        localStorage.setItem("Id", resp.user._id)
         //localStorage.setItem("userId"), JSON.stringify(resp.user._id);
 
         if(resp.user.role !== "superadmin" ){
@@ -43,12 +53,20 @@ export class Login extends React.Component {
         Auth.login(resp.auth_token, resp.user.role, resp.user._id, resp.user.apartment._id);
         //this.setState({loggedin:true, role:JSON.Parse.resp.user.role});
         this.setState({loggedin:true});
+        }
       })
     })
 
     
     
   }
+
+  handleClose = () =>{
+        
+    this.setState({show:false});
+    console.log("close called");
+    
+}
 
   render() {
     if(localStorage.getItem("role") === "\"superadmin\"") 
@@ -57,7 +75,25 @@ export class Login extends React.Component {
     // return <div><Redirect to = "/user"/></div>
     else if (localStorage.getItem("role") === "\"admin\"") 
     return <div><Redirect to = "/Societyadmin"/></div>
-    return (
+    return (<React.Fragment>
+      <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+          
+        </Modal.Header>
+        <Modal.Body>
+        <div className="base-container">
+        <div className="header">
+        <div className="content">
+        <div>
+        <Alert id="alertMsg"  show = {this.state.show} variant={this.state.variant}>{this.state.message}</Alert>
+        </div>
+          </div>
+</div></div>
+             </Modal.Body>
+        
+                
+            </Modal>
+
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
         <div className="content">
@@ -78,11 +114,21 @@ export class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" onClick={()=> this.login()}>
-            Login
+          <button type="button" className="btnn btn" onClick={()=> this.login()}>
+          {
+      this.state.toggle &&
+      <Spinner
+      as="span"
+      animation="border"
+      size="sm"
+      role="status"
+      aria-hidden="true"
+    />
+   } Login
           </button>
         </div>
       </div>
+      </React.Fragment>
     );
   }
 }

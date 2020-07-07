@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import {Modal, Button,Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../../css/counter.scss';
+import '../../../../../src/App.scss';
+
+
 class PopupForm extends Component {
     constructor(props) {
         super(props);
         this.state = { 
             show: false,
-            name:"",
-            prevName:this.props.apartment.name
+            username:this.props.resident.username,
+            email:this.props.resident.email,
+            password:this.props.resident.password,
+            role:this.props.resident.role,
+            apartmentId :this.props.resident.apartmentId
          }
          this.setShow = this.setShow.bind(this)
          this.handleClose = this.handleClose.bind(this)
          this.handleShow = this.handleShow.bind(this)
     }
+
 
     setShow = (val) => {
         
@@ -38,10 +43,11 @@ class PopupForm extends Component {
         //e.preventDefault(e);
 
         //this.props.apartment.name = this.state.name;
-        console.log(this.state.name);
+        console.log(this.state);
         this.handleClose(false);
-
-        this.props.onSubmit(this.state.name, this.props.apartment.id, this.state.prevName);
+        let {username, email, password, role,apartmentId} = this.state;
+        const updatedInfo = {username, email, password, role,apartmentId};
+        this.props.onSubmit( this.props.resident.id, updatedInfo);
     }
     style={
         height:'10px'
@@ -67,35 +73,33 @@ class PopupForm extends Component {
         <div className="form">
             <div className="form-group">
             <form>
-            <label>Enter new apartment name</label><br></br>
-            <input type="text" name="name" placeholder="New Apartment name"
-              onChange={(e) => {this.setState({name:e.target.value})} }/>
+            <label>Update Username</label><br></br>
+            <input type="text" name="username" placeholder="New Apartment name" value={this.state.username}
+              onChange={(e) => {this.setState({username:e.target.value})} }/>
             </form>
             </div>
-            <Button variant="primary" onClick={() =>{this.handleSubmit()}}>
-            Submit
-          </Button>
-            </div>
-            
-            <div className="form">
             <div className="form-group">
             <form>
-            <label>Enter new amenity name</label><br></br>
-            <input type="text" name="name" placeholder="New amenity name"
-              onChange={(e) => {this.setState({amenityName:e.target.value})} }/>
+            <label>Update Email</label><br></br>
+            <input type="text" name="email" placeholder="New email" value={this.state.email}
+              onChange={(e) => {this.setState({email:e.target.value})} }/>
             </form>
+            </div>
+            <div className="form-group">
             <form>
-            <label>Enter amenity description</label><br></br>
-            <input type="text" name="description" placeholder="Description"
-              onChange={(e) => {this.setState({amenityDescription:e.target.value})} }/>
+            <label>Update Password</label><br></br>
+            <input type="text" name="password" placeholder="New Password"  value={this.state.password}
+              onChange={(e) => {this.setState({password:e.target.value})} }/>
             </form>
             </div>
-            <Button variant="primary" onClick={() =>{this.props.onSubmitAmenity(this.props.apartment.id, this.state.amenityName,this.state.amenityDescription)}}>
-            Submit
-          </Button>
+            <div className="form-group">
+            <form>
+            <label>Update role</label><br></br>
+            <input type="text" name="role" placeholder="New Role" value={this.state.role}
+              onChange={(e) => {this.setState({role:e.target.value})} }/>
+            </form>
             </div>
-
-
+            </div>
           </div>
 </div></div>
              </Modal.Body>
@@ -103,7 +107,9 @@ class PopupForm extends Component {
           <Button variant="secondary" onClick={this.handleClose}>
             Close
           </Button>
-          
+          <Button variant="primary" onClick={() =>{this.handleSubmit()}}>
+            Save Changes
+          </Button>
         </Modal.Footer>
       </Modal>
             </React.Fragment> );

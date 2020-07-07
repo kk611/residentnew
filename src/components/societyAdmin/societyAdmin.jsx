@@ -10,8 +10,7 @@ class SocietyAdmin extends Component {
     }
     render() { 
         if(localStorage.getItem("role") === "\"admin\"")
-        return ( <React.Fragment><SocietySidebar/><div>user Dashboard</div>
-        <Link to ="/logout" >Logout</Link>
+        return ( <React.Fragment><SocietySidebar/>
          </React.Fragment>);
          else return(<Redirect to="/"/>)
     }

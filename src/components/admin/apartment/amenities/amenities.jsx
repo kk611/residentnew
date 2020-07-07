@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import CounterAmenities from "./counterAmenities";
 import {Modal ,Alert, Spinner} from 'react-bootstrap';
 class Amenities extends Component {
-    state = { 
+    constructor(props) {
+        super(props);
+        this.state = { 
         amenities:[],toggle:false,
         show : false,
         message:"",
         variant:""
-     }
+     };
+    }
      handleClose = () =>{
         
       this.setState({show:false});
@@ -16,18 +19,9 @@ class Amenities extends Component {
   }
     getList = () =>{
       this.setState({toggle:true})
-        fetch(`https://cors-anywhere.herokuapp.com/http://ec2-3-20-203-149.us-east-2.compute.amazonaws.com/apartment/details`,{
-           method:"POST",
-           headers:{
-             "apartmentId":localStorage.getItem("apartmentId"),
-             "Content-Type":"application/json"
-           }
-           //body:JSON.stringify(this.state)
-         }).then((result)=>{
-           result.json().then((resp)=>{
-               
+                console.log(this.props.apartment);
                //JSON.parse(resp);
-               let data = resp.amenities;
+               let data = this.props.apartment.amenities;
                
                
                console.log(data);
@@ -36,8 +30,8 @@ class Amenities extends Component {
                
                this.setState({amenities:newdata});
                this.setState({toggle:false})
-           })
-         })}
+           
+         }
 
          handleDelete = (counterId) =>{
            
@@ -49,7 +43,7 @@ class Amenities extends Component {
              headers:{
                 
                "amenityid":counterId,
-               "apartmentid":localStorage.getItem("apartmetnId"),
+               "apartmentid":this.props.apartment.id,
                "Content-Type":"application/json",
              }
              //body:JSON.stringify(this.state)

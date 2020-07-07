@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
+import {Modal ,Alert, Spinner} from 'react-bootstrap';
+
 class CreateAmenity extends Component {
     constructor(props) {
         super(props);
         this.state = {
           name:"",
           description:"",
+          show : false,
+      message:"",
+      variant:""
         };
         this.newAmenity = this.newAmenity.bind(this)
       }
+
+      handleClose = () =>{
+        
+        this.setState({show:false});
+        console.log("close called");
+        
+    }
 
     newAmenity = () => {
         console.log(this.state.name);
@@ -22,7 +34,21 @@ class CreateAmenity extends Component {
           "Content-Type":"application/json",
         },
         body:JSON.stringify(newAmenity)
-      })
+      }).then((result)=>{
+        result.text().then((resp)=>{
+            console.log(resp);
+            if(resp === "Apartment added successfully"){
+                this.setState({message : resp});
+              this.setState({variant:"success"});
+              this.setState({show:true});
+            }
+            else{
+                this.setState({message : resp});
+              this.setState({variant:"danger"});
+              this.setState({show:true});
+            }
+        })
+    })
 
       //("#myAlert").alert('close');
       
@@ -32,6 +58,23 @@ class CreateAmenity extends Component {
       //const message = (`#{message}`);
       //message.hide();
         return ( <React.Fragment>
+          <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+          
+        </Modal.Header>
+        <Modal.Body>
+        <div className="base-container">
+        <div className="header">
+        <div className="content">
+        <div>
+        <Alert id="alertMsg"  show = {this.state.show} variant={this.state.variant}>{this.state.message}</Alert>
+        </div>
+          </div>
+</div></div>
+             </Modal.Body>
+        
+                
+            </Modal>
            <div className="base-container" >
            
         <div className="header">create Amenity</div>
