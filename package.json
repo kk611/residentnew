@@ -21,7 +21,7 @@
     "react-spring": "^8.0.20"
   },
   "scripts": {
-     "start": "node server",
+    "start": "node server",
     "start:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
